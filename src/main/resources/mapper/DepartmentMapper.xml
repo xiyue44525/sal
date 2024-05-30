@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo12.dao.DepartmentDao">
+    <select id="searchDepartments" resultType="com.example.demo12.entity.Departments">
+        SELECT * FROM departments
+        <where>
+            <if test="params2 != null and params2.departmentName!= null and params2.departmentName!= ''">
+                and department_name like concat('%',#{params2.departmentName},'%')
+            </if>
+            <if test="params2 != null and params2.email!= null and params2.email!= ''">
+                and email like concat('%',#{params2.email},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo12.dao.EmployeesDao">
+    <select id="searchEmployees" resultType="com.example.demo12.entity.Employees">
+        SELECT e.*, d.department_name AS departmentName
+        FROM employees e
+        LEFT OUTER JOIN departments d ON e.department_id = d.id
+        <where>
+            <if test="params != null and params.departmentName!= null and params.departmentName!= ''">
+                and d.department_name like concat('%',#{params.departmentName},'%')
+            </if>
+            <if test="params != null and params.userName!= null and params.userName!= ''">
+                and e.user_name like concat('%',#{params.userName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
