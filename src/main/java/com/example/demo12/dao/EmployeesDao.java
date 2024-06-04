@@ -29,4 +29,5 @@ public interface EmployeesDao extends Mapper <Employees> {
     Employees selectByEmployeeId(Integer employeeId);
     @Select("select * from attendance where employee_id = #{employeeId}")
     Attendance getAttendanceByEmployeeId(Integer employeeId);
+
 }

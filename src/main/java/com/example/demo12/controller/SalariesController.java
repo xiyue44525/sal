@@ -39,5 +39,10 @@ public class SalariesController {
         salariesService.refreshSalaries();
         return Result.success();
     }
+    @PostMapping("/ownSal/{id}")
+    public Result getSalariesByEmployeeId(@PathVariable Integer id) {
+        Salaries salaries = salariesService.getSalariesByEmployeeId(id);
+        return Result.success(salaries);
+    }
 
 }

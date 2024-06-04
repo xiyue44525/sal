@@ -61,7 +61,7 @@ public class EmployeesService {
         {
                 departmentIdCheck(Employees);
             if (!departmentSizeCheck(Employees)) {
-                throw new CustomException("部门下员工数量已达到上限");
+                throw new CustomException(Employees.getDepartmentName() + "部门下员工数量已达到上限");
             }
         }
         EmployeesDao.insertSelective(Employees);
@@ -159,4 +159,5 @@ public class EmployeesService {
     public void updateUser(Employees employees) {
         EmployeesDao.updateByPrimaryKeySelective(employees);
     }
+
 }

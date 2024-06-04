@@ -1,14 +1,16 @@
 package com.example.demo12.entity;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import cn.hutool.core.annotation.Alias;
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Table(name = "employees")
 public class Employees {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Alias("id")
     private Integer id;
+    @Alias("姓名")
     @Column(name = "user_name")
     private String userName;
     @Transient
@@ -21,18 +23,26 @@ public class Employees {
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
-
+    @Alias("部门")
     @Transient
     private String departmentName;
+    @Alias("性别")
     private String sex;
     @Column(name = "department_id")
     private Integer departmentId;
+    @Alias("联系方式")
     private String phone;
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "GMT+8")
+    @Alias("入职时间")
+    @Transient
+    private String dateForMoment;
     @Column(name = "join_date")
     private Timestamp joinDate;
     private String password;
-    private String sign;
+    @Alias("权限")
+    @Transient
+    private String role;
+    private Integer sign;
     private String img;
     private Timestamp createTime;
 
@@ -102,11 +112,11 @@ public class Employees {
         this.password = password;
     }
 
-    public String getSign() {
+    public Integer getSign() {
         return sign;
     }
 
-    public void setSign(String sign) {
+    public void setSign(Integer sign) {
         this.sign = sign;
     }
 
@@ -132,6 +142,22 @@ public class Employees {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getDateForMoment() {
+        return dateForMoment;
+    }
+
+    public void setDateForMoment(String dateForMoment) {
+        this.dateForMoment = dateForMoment;
     }
 }
 
