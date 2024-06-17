@@ -18,6 +18,10 @@ public class AttendanceService {
     @Resource
     private EmployeesService employeeService;
 
+    public  Attendance getAttendanceById(Integer id) {
+        return  attendanceDao.getAttendanceById(id);
+    }
+
     public  Attendance getAttendanceByEmployeeId(Integer employeeId) {
         return attendanceDao.selectByEmployeeId(employeeId);
     }

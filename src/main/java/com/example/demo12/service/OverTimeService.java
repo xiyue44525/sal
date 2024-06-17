@@ -65,4 +65,8 @@ public class OverTimeService {
     public OverTime getOverTimeByEmployeeId(Integer id) {
         return overTimeDao.selectByEmployeeId(id);
     }
+
+    public OverTime getOverTimeById(Integer id) {
+        return overTimeDao.getOverTimeById(id);
+    }
 }

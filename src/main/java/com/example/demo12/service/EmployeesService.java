@@ -27,6 +27,8 @@ public class EmployeesService {
     private AttendanceService attendanceService;
     @Resource
     private SalariesService SalariesService;
+    @Resource
+    private EmployeesService employeesService;
 
     public List<Employees> getEmployees() {
         return EmployeesDao.getEmployees();
@@ -140,8 +142,10 @@ public class EmployeesService {
     public boolean departmentSizeCheck(Employees Employees) {
         Integer departmentId = Employees.getDepartmentId();//获取部门id
         int employeeCount = EmployeesDao.getEmployeeCountByDepartmentId(departmentId);//根据部门id查询员工数量
+        Integer id =Employees.getId();//员工id
+        List<Integer> list = employeesService.getAllId();
         //判断部门下员工数量是否超过限制
-        if ( employeeCount < departmentService.getDepartmentSizeForCheck(departmentId)) {
+        if ( list.contains(id)||employeeCount < departmentService.getDepartmentSizeForCheck(departmentId)) {
             return true;
         } else {
             return false;
@@ -160,4 +164,11 @@ public class EmployeesService {
         EmployeesDao.updateByPrimaryKeySelective(employees);
     }
 
+    public List<Integer> getAllId() {
+        return EmployeesDao.getAllId();
+    }
+
+    public List<Employees> selectEmployeesByDepartmentId(Integer id) {
+        return EmployeesDao.selectEmployeesByDepartmentId(id);
+    }
 }

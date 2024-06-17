@@ -1,13 +1,15 @@
 package com.example.demo12.controller;
 
 import com.example.demo12.common.Result;
-import com.example.demo12.entity.Params3;
-import com.example.demo12.entity.Salaries;
+import com.example.demo12.entity.*;
+import com.example.demo12.service.AttendanceService;
+import com.example.demo12.service.OverTimeService;
 import com.example.demo12.service.SalariesService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -15,6 +17,10 @@ import javax.annotation.Resource;
 public class SalariesController {
     @Resource
     private SalariesService salariesService;
+    @Resource
+    private AttendanceService attendanceService;
+    @Resource
+    private OverTimeService overTimeService;
     @GetMapping("/search")
     public Result searchSalaries(Params3 params3) {
         PageInfo<Salaries> info = salariesService.searchSalaries(params3);
@@ -44,5 +50,11 @@ public class SalariesController {
         Salaries salaries = salariesService.getSalariesByEmployeeId(id);
         return Result.success(salaries);
     }
-
+    @PostMapping("/OwnMsgForSal/{id}")
+    public  Result getSalariesMag(@PathVariable Integer id){
+        Attendance attendance = attendanceService.getAttendanceById(id);
+        OverTime overTime = overTimeService.getOverTimeById(id);
+        AttendanceAndOverTimeDTO dto = new AttendanceAndOverTimeDTO(attendance, overTime);
+        return Result.success(dto);
+    }
 }

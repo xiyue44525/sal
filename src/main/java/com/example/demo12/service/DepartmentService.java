@@ -1,6 +1,7 @@
 package com.example.demo12.service;
 import com.example.demo12.dao.DepartmentDao;
 import com.example.demo12.entity.Departments;
+import com.example.demo12.entity.Employees;
 import com.example.demo12.entity.Params2;
 import com.example.demo12.exception.CustomException;
 import com.github.pagehelper.PageHelper;
@@ -14,6 +15,8 @@ import java.util.List;
 public class DepartmentService {
     @Resource
     private DepartmentDao departmentDao;
+    @Resource
+    private EmployeesService employeesService;
 
     public List<Departments> findDepartment() {
         return departmentDao.findDepartment();
@@ -57,7 +60,14 @@ public class DepartmentService {
     }
 
     public void deleteDepartment(Integer id) {
-        departmentDao.deleteByPrimaryKey(id);
+        List<Employees> list =employeesService.selectEmployeesByDepartmentId(id);
+        System.out.println(list);
+        if(!list.isEmpty())
+        {
+            throw new CustomException("部门存在员工，不可删除");
+        }else{
+            departmentDao.deleteByPrimaryKey(id);
+        }
     }
 
     public int getDepartmentSizeForCheck(Integer departmentId) {

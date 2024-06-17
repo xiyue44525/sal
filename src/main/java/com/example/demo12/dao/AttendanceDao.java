@@ -12,6 +12,9 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 @Repository
 public interface AttendanceDao extends Mapper<Attendance> {
+    @Select("select * FROM attendance  WHERE employee_id = #{id}")
+     Attendance getAttendanceById(Integer id);
+
     List<Attendance> searchAttendance(@Param("params3") Params3 params3);
     @Select("SELECT * FROM attendance WHERE employee_id = #{employeeId}")
     Attendance selectByEmployeeId(Integer employeeId);

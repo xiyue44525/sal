@@ -39,7 +39,9 @@ public class EmployeeController {
     }
     @PostMapping("/add")
     public Result addEmployees(@RequestBody Employees Employees) {
-        if(Employees.getId() == null){
+        List<Integer> list = EmployeesService.getAllId();
+        Integer id =Employees.getId();
+        if(Employees.getId() == null|| !list.contains(id)){
                 EmployeesService.addEmployees(Employees);}
         else{
                 EmployeesService.updateEmployees(Employees);
@@ -134,10 +136,14 @@ public class EmployeeController {
                 }
                 String joinDataStr = info.getDateForMoment();
                 try {
+                    if(joinDataStr.isEmpty()){
+                      info.setJoinDate(null);
+                    }else{
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date joinTimeDate = sdf.parse(joinDataStr);
                     Timestamp joinTimeTimestamp = new Timestamp(joinTimeDate.getTime());
                     info.setJoinDate(joinTimeTimestamp);
+                    }
                     if(EmployeesService.FindById(info.getId()) != null)
                     {
                         EmployeesService.updateEmployees(info);
