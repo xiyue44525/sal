@@ -26,19 +26,22 @@ public class SalariesService {
     private AttendanceService attendanceService;
     @Resource
     private SalariesDao SalariesDao;
+    @Resource
+    private PositionService positionService;
+
 
     public  Salaries getSalariesByEmployeeId(Integer id) {
         return SalariesDao.getSalariesByEmployeeId(id);
     }
 
     public PageInfo<Salaries> searchSalaries(Params3 params3) {
+        createAllSalaries();
         //分页
         PageHelper.startPage(params3.getPageNum(), params3.getPageSize());
         //搜索
         List<Salaries> list =salariesDao.searchSalaries(params3);
         return PageInfo.of(list);
     }
-
     public void addSalaries(Salaries salaries) {
         if(salaries.getEmployeeId() == null) {
             throw new CustomException("员工id不能为空");
@@ -110,8 +113,43 @@ public class SalariesService {
             salariesDao.refreshSalaries(salaries);
         }
     }
+    public void createAllSalaries(){
+        //获取所有员工
+        List<Employees> list = employeeService.getEmployees();
+        //循环添加或者更新数据
+        for(Employees employees: list){
+            //获取员工id
+            Integer employeesId = employees.getId();
+            //获取部门
+            Integer DepartmentId = employees.getDepartmentId();
+            Departments department = departmentService.selectDepartmentById(DepartmentId);
+            //计算扣除金额
+            BigDecimal deductionAmount = calculateDeduction(employeesId,department);
+            //计算加班工资
+            BigDecimal overtimePay = calculateOvertimePay(employeesId,department);
+            //获取职位名称
+            String positionName = employees.getPositionName();
+            PositionSal positionSal = positionService.getPositionByPosition(positionName);
+            //创建Salary对象
+            Salaries salaries = new Salaries();
+            salaries.setEmployeeId(employeesId);
+            salaries.setBaseSalary(positionSal.getBaseSalary());
+            salaries.setAllowance(positionSal.getAllowance());
+            salaries.setDeduction(deductionAmount);
+            salaries.setOvertimePay(overtimePay);
+            //判断是否存在工资信息
+            if((getSalariesByEmployeeId(employeesId))!= null){
+                salariesDao.updateSalariesAll(salaries);
+            }else{
+            salariesDao.insertSelective(salaries);}
+        }
+    }
 
     public void deleteByEmployeeId(Integer id) {
         salariesDao.deleteByEmployeeId(id);
+    }
+
+    public List<Salaries> getAllSalary() {
+        return salariesDao.getAllSalary();
     }
 }

@@ -11,6 +11,9 @@ import java.util.List;
 
 @Repository
 public interface DepartmentDao extends Mapper<Departments> {
+    @Select("select * from departments where id = #{id}")
+     Departments getDepartmentById(Integer id);
+
     @Select("select * from departments where department_name = #{departmentName}")
     Departments selectByDepartmentName(@Param("departmentName") String departmentName);
 

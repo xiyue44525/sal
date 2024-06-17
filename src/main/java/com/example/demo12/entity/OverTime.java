@@ -1,5 +1,7 @@
 package com.example.demo12.entity;
 
+import cn.hutool.core.annotation.Alias;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,8 +11,11 @@ import java.math.BigDecimal;
 public class OverTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Alias("记录id")
     private Integer id;
+    @Alias("职工号")
     private Integer employeeId;
+    @Alias("加班小时数")
     private  Integer overtimeHours;
 
     public Integer getId() {

@@ -15,17 +15,25 @@ import java.util.List;
 @Repository
 public interface SalariesDao extends Mapper<Salaries> {
     @Select("SELECT * FROM salaries WHERE employee_id = #{id}")
-     Salaries getSalariesByEmployeeId(Integer id);
+    Salaries getSalariesByEmployeeId(Integer id);
 
     @Select("SELECT * FROM salaries WHERE employee_id = #{employeeId}")
-   Salaries selectByEmployeeId(Integer employeeId);
+    Salaries selectByEmployeeId(Integer employeeId);
 
-   List<Salaries> searchSalaries(@Param("params3") Params3 params3);
+    List<Salaries> searchSalaries(@Param("params3") Params3 params3);
 
-   @Update("UPDATE salaries SET  base_salary = #{baseSalary}, allowance = #{allowance} WHERE id = #{id}")
-   void updateSalaries(Salaries salaries);
+    @Update("UPDATE salaries SET  base_salary = #{baseSalary}, allowance = #{allowance} WHERE id = #{id}")
+    void updateSalaries(Salaries salaries);
+
     @Update("UPDATE salaries SET  deduction=#{deduction},overtime_pay =#{overtimePay} WHERE id = #{id}")
     void refreshSalaries(Salaries salaries);
+
     @Delete("DELETE FROM salaries WHERE employee_id = #{id}")
     void deleteByEmployeeId(Integer id);
+
+    @Update("UPDATE salaries SET  base_salary = #{baseSalary}, allowance = #{allowance},deduction=#{deduction},overtime_pay =#{overtimePay} WHERE employee_id = #{id}")
+    void updateSalariesAll(Salaries salaries);
+
+    @Select("SELECT * FROM salaries ")
+    List<Salaries> getAllSalary();
 }

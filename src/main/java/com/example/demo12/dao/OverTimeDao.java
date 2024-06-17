@@ -22,4 +22,6 @@ public interface OverTimeDao extends Mapper<OverTime> {
     void deleteByEmployeeId(Integer id);
     @Select("SELECT * FROM overtime WHERE employee_id = #{id} ")
     OverTime getOverTimeById(Integer id);
+    @Select("SELECT * FROM overtime")
+    List<OverTime> getAllOverTime();
 }

@@ -20,4 +20,6 @@ public interface AttendanceDao extends Mapper<Attendance> {
     Attendance selectByEmployeeId(Integer employeeId);
     @Delete("DELETE FROM attendance WHERE employee_id = #{id}")
     void deleteByEmployeeId(Integer id);
+    @Select("SELECT * FROM attendance")
+    List<Attendance> getAllAttendance();
 }

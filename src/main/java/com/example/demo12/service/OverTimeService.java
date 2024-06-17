@@ -69,4 +69,8 @@ public class OverTimeService {
     public OverTime getOverTimeById(Integer id) {
         return overTimeDao.getOverTimeById(id);
     }
+
+    public List<OverTime> getAllOverTime() {
+        return overTimeDao.getAllOverTime();
+    }
 }

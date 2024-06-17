@@ -81,7 +81,7 @@ public class EmployeeController {
         if (CollectionUtil.isEmpty(all)) {
             throw new ClassCastException("没有数据");
         }
-        List<String> headers = Arrays.asList("id", "姓名", "性别", "部门", "入职时间", "联系方式", "权限");
+        List<String> headers = Arrays.asList("id", "姓名", "性别", "部门", "入职时间", "联系方式", "职位","权限");
         List<Map<String, Object>> list = new ArrayList<>(all.size());
         for (Employees employee : all) {
             Map<String, Object> map = new LinkedHashMap<>();
@@ -104,6 +104,9 @@ public class EmployeeController {
                         break;
                     case "联系方式":
                         map.put(header, employee.getPhone());
+                        break;
+                    case "职位":
+                        map.put(header, employee.getPositionName());
                         break;
                     case "权限":
                         map.put(header, employee.getSign() == 1 ? "管理员" : "员工");

@@ -77,4 +77,8 @@ public class DepartmentService {
     public Departments selectDepartmentById(Integer id) {
         return departmentDao.selectByPrimaryKey(id);
     }
+
+    public Departments getDepartmentById(Integer id) {
+        return departmentDao.getDepartmentById(id);
+    }
 }

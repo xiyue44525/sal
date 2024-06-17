@@ -1,7 +1,6 @@
 package com.example.demo12.entity;
 import cn.hutool.core.annotation.Alias;
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Table(name = "employees")
@@ -47,6 +46,8 @@ public class Employees {
     private Timestamp createTime;
 
     private Timestamp updateTime;
+    @Alias("职位")
+    private String positionName;
 
     public Integer getId() {
         return id;
@@ -158,6 +159,14 @@ public class Employees {
 
     public void setDateForMoment(String dateForMoment) {
         this.dateForMoment = dateForMoment;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 }
 

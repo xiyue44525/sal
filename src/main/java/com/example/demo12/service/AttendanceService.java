@@ -62,4 +62,8 @@ public class AttendanceService {
     public void deleteByEmployeeId(Integer id) {
         attendanceDao.deleteByEmployeeId(id);
     }
+
+    public List<Attendance> getAllAttendance() {
+        return  attendanceDao.getAllAttendance();
+    }
 }

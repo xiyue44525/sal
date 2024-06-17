@@ -1,5 +1,7 @@
 package com.example.demo12.entity;
 
+import cn.hutool.core.annotation.Alias;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,12 +13,19 @@ import java.sql.Timestamp;
 public class Departments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Alias("部门id")
     private Integer id;
+    @Alias("部门名称")
     private String departmentName;
+    @Alias("部门人数")
     private Integer departmentSize;
+    @Alias("联系电话")
     private String contactNumber;
+    @Alias("邮箱")
     private String email;
+    @Alias("缺勤一天扣款")
     private BigDecimal deductionAmount;
+    @Alias("加班一天费用")
     private BigDecimal oneHourPay;
     private Timestamp createTime;
 
