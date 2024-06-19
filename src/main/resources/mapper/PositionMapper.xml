@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo12.dao.PositionDao">
+    <select id="searchPosition" resultType="com.example.demo12.entity.PositionSal">
+        SELECT * FROM position_sal
+        <where>
+            <if test="params4 != null and params4.position!= null and params4.position!= ''">
+                and position like concat('%',#{params4.position},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
